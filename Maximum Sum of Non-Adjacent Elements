@@ -1,0 +1,84 @@
+//Maximum Sum of Non-Adjacent Elements
+package JavaPrograms;
+
+public class DynamicProgramming {
+
+    public static int Helper(int arr[], int ind, int n){
+        if(ind==n-1) return arr[n-1];
+        if(ind>=n) return 0;
+
+        int pic = arr[ind]+Helper(arr,ind+2,n);
+        int nonPic = Helper(arr,ind+1,n);
+
+        return Math.max(pic,nonPic);
+    }
+
+    public static int maxNonAdjacentEle(int arr[]){
+        int n = arr.length;
+        return Helper(arr,0,n);
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {2,1,4,9};
+        System.out.println(maxNonAdjacentEle(arr));
+    }
+}
+
+package JavaPrograms;
+
+import java.util.Arrays;
+
+public class DynamicProgramming {
+
+    public static int Helper(int arr[], int ind, int n,int dp[]){
+        if(ind==n-1) return arr[n-1];
+        if(ind>=n) return 0;
+        if(dp[ind]!=-1) return dp[ind];
+
+        int pic = arr[ind]+Helper(arr,ind+2,n,dp);
+        int nonPic = Helper(arr,ind+1,n,dp);
+
+        return dp[ind] = Math.max(pic,nonPic);
+    }
+
+    public static int maxNonAdjacentEle(int arr[]){
+        int n = arr.length;
+        int dp[] = new int[n];
+        Arrays.fill(dp,-1);
+        return Helper(arr,0,n,dp);
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {2,1,4,9};
+        System.out.println(maxNonAdjacentEle(arr));
+    }
+}
+
+// Space Optimization
+
+package JavaPrograms;
+
+public class DynamicProgramming {
+
+    public static int maxNonAdjacentEle(int arr[]) {
+        int a = arr[0];
+        int b = 0;
+        int n = arr.length;
+        for(int i=1;i<n;i++){
+            int take = arr[i];
+            if(i>1){
+                take+=a;
+            }
+            int noTake = 0+b;
+            int Curri = Math.max(take,noTake);
+            a=b;
+            b=Curri;
+        }
+        return b;
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {2,1,4,9};
+        System.out.println(maxNonAdjacentEle(arr));
+    }
+}
