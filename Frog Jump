@@ -1,0 +1,53 @@
+package JavaPrograms;
+
+public class DynamicProgramming {
+
+    public static int Helper(int jumps[], int n){
+
+        if(n<=0) return 0;
+        
+
+        int left = Helper(jumps,n-1)+Math.abs(jumps[n]-jumps[n-1]);
+        int right = Integer.MAX_VALUE;
+        if(n>1){
+            right = Helper(jumps,n-2)+Math.abs(jumps[n-1]-jumps[n-2]);
+        }
+        return Math.min(left,right);
+    }
+
+    public static int frogJump(int jumps[], int n){
+        return Helper(jumps,n-1);
+    }
+
+    public static void main(String[] args) {
+        int jumps[] = {10,20,30,10};
+        int n = jumps.length;
+        System.out.println(frogJump(jumps,n));
+    }
+}
+
+// Tebulation Method
+package JavaPrograms;
+
+public class DynamicProgramming {
+
+    public static int frogJump(int jumps[], int n){
+
+        int dp[] = new int[n];
+        for(int i = 1;i<n;i++){
+            int left = dp[i-1]+Math.abs(jumps[i]-jumps[i-1]);
+            int right = Integer.MAX_VALUE;
+            if(i>1){
+                right = dp[i-2]+Math.abs(jumps[i]-jumps[i-2]);
+            }
+            dp[i] = Math.min(left,right);
+        }
+        return dp[n-1];
+    }
+
+    public static void main(String[] args) {
+        int jumps[] = {10,20,30,10};
+        int n = jumps.length;
+        System.out.println(frogJump(jumps,n));
+    }
+}
