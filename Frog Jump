@@ -10,7 +10,7 @@ public class DynamicProgramming {
         int left = Helper(jumps,n-1)+Math.abs(jumps[n]-jumps[n-1]);
         int right = Integer.MAX_VALUE;
         if(n>1){
-            right = Helper(jumps,n-2)+Math.abs(jumps[n-1]-jumps[n-2]);
+            right = Helper(jumps,n-2)+Math.abs(jumps[n]-jumps[n-2]);
         }
         return Math.min(left,right);
     }
